@@ -9,8 +9,7 @@ The code is not yet in easily-installable and registered Julia package format (t
 ## Installation
 
 1. Make sure you have [Julia 1.01](https://julialang.org/downloads/) or above installed
-2. Install several needed Julia packages:
-```Julia
+2. Install several needed Julia packages: ```Julia
 using Pkg
 Pkg.add("DataStructures")
 Pkg.add("Nullables")
