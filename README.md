@@ -21,9 +21,9 @@ Pkg.add("Knet")
 Pkg.add("JLD2")
 Pkg.add("DSP")
 ```
-on Linux the `Dieckx` package needs a fortran compiler so `sudo apt-get install gfortran`
-1. clone this repository `git clone https://github.com/imagry/aleph_star`
-2. 
+on Linux the `Dierckx` package needs a fortran compiler so `sudo apt-get install gfortran`. The ML package is [Knet](https://github.com/denizyuret/Knet.jl) and requires the `nvcc` (NVIDIA compiler from `Cuda`) to be in the path, otherwise it will default to using the CPU, and the code using it has to be modified accordingly.
+3. clone this repository `git clone https://github.com/imagry/aleph_star`
+4. 
 
 ## The environment
 
