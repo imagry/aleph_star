@@ -29,7 +29,9 @@ on Linux the `Dierckx` package needs a fortran compiler so `sudo apt-get install
 
 ## The environment
 
-The only supplied environment is of a car following a lane. It can be found in the `env` directory, to include it call `include(env/env_lane.jl)`. This environment generates a lane of random width and random curves. The curvature, min/max width and length can all be configured, but to use the defaults just call `state, env = initialize_simple_road()` which will generate a new random lane and an initial state.
+The only supplied environment is of a car following a lane. It can be found in the `env` directory, to include it call `include("env/env_lane.jl")`. This environment generates a lane of random width and curves. The curvature, min/max width and length can be configured, but to use the defaults just call `state, env = initialize_simple_road()` which will generate a new random lane and an initial state. From any state `sensors` can be generated, in our case an image: `sensors = get_sensors(env, state)` which can be plotted by (for e.g.) `heatmap(sensors, aspect_ratio=1.0)` resulting in:
+
+
 
 
 
