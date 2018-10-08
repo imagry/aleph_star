@@ -95,7 +95,7 @@ Aleph-Star shows consistently and robustly better perfomance than n-step DQN as 
 
 ![results](images/results.png)
 
-### Creating a new environment
+## Creating a new environment
 
 Implement the following methods, the sensors could be either an image or just a vector of numbers:
 
