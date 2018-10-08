@@ -6,15 +6,13 @@ This repository contains the necessary code to reproduce the results presented i
 
 This repository is not yet in the form of a Julia package (this is WIP), but it is fairly general and can easily be used with different environments.
 
-<!--ts-->
-    * [Installation](#installation)
-    * [Simulated environment](#the-environment)
-    * [Sensors](#regarding-the-sensors)
-    * [Simulating a few steps](#simulating-a-few-steps)
-    * [Training with Aleph-Star and n-step DQN](#training-with-aleph-star-and-n-step-dqn)
-    * [Results](#results)
-    * [Creating a new environment](#creating-a-new-environment)
-<!--te-->
+   * [Installation](#installation)
+   * [Simulated environment](#the-environment)
+   * [Sensors](#regarding-the-sensors)
+   * [Simulating a few steps](#simulating-a-few-steps)
+   * [Training with Aleph-Star and n-step DQN](#training-with-aleph-star-and-n-step-dqn)
+   * [Results](#results)
+   * [Creating a new environment](#creating-a-new-environment)
 
 
 ## Installation
