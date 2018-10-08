@@ -79,11 +79,11 @@ The function `state, reward, done = sim!(env, state, action)` will simulate by d
 
 ## Training with Aleph-Star and n-step DQN
 
-1. The relevant files are in the folder `ml`. The network is defined in `ml.jl`, the training oops and data structures in `train_alephstar.jl` for aleph-star and `train_dqn` for N-Step DQN
+1. The relevant files are in the folder `ml`. The network is defined in `ml.jl`, the training parameters and data structures in `train_alephstar.jl` for aleph-star and `train_dqn` for N-Step DQN.
 
-2. To train with Aleph-Star create a `DemoTrainingAlephStar` structure containing all the relevant training parameters and performance tracking. A helper function is `dtas = InitializeDTAS()` it initializes with a learning rate of 0.01, trees of 5500 nodes, gamma of 0.98, etc.
+2. To train with Aleph-Star create a `DemoTrainingAlephStar` structure containing all the relevant training parameters and performance tracking. A helper function is `dtas = InitializeDTAS()` it initializes with a learning rate of 0.01, trees of 5500 nodes, gamma of 0.98, etc. This function also initializes the network weights which could be done as `w = initialize_weights(number_of_actions)`
 
-2. the training loop is run `traindtas(dtas, iters, fname)`. It will output some imformation on how the process is going, it will save all the training state (including sensors in the replay buffer) every 100 iterations into the file named `fname` and it will stop after `iters` iterations. The run can be interrupted (not on Windows because of a bug) in the Jupyter notebook or the repl with `cmd-c`. To save training data at any point do `@save fname dtas`
+2. the training loop is run `traindtas(dtas, iters, fname)`. It will output some imformation on how the process is going, it will save all the training state (including sensors in the replay buffer) every 100 iterations into the file named `fname` and it will stop after `iters` iterations. The run can be interrupted (not on Windows because of a bug) in the Jupyter notebook or the repl with `cmd-c`. To save training data at any point do `@save fname dtas` and to load `@load fname dtas`. Generating a tree could be done with `tree = build_tree(w, env, root_state, stepc, epsilon, gamma)`
 
 3. Plot the results with `plotdtas(dtas)`.
 
@@ -100,9 +100,10 @@ Aleph-Star shows consistently and robustly better perfomance than n-step DQN as 
 Implement the following methods, the sensors could be either an image or just a vector of numbers:
 
 ```
-action = action_ix_to_action(::MyEnv, ix::Int32)
+action = action_ix_to_action(env, ix)
 sensors = get_sensors(env, state)
-state, reward, done = sim!(env::MyEnv, state, action)
+state, reward, done = sim!(env, state, action)
+qs = network_predict(env, w, sensors) # `w` for the network weights
 ```
 
 ## Why Julia?
