@@ -48,7 +48,7 @@ The function `sim!(env, state, action)` will simulate by default 5 steps
 
 
 <div align="center">
-  <img src="./sensors.png">
+  <img src="./results.png">
 </div>
 
 
