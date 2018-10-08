@@ -44,12 +44,23 @@ instead of using multiple images (like in the original DQN paper), we encode add
 
 ### Simulating a few steps
 
-The function `state, reward, done = sim!(env, state, action)` will simulate by default 5 steps and return the new state, a positive reward and done (whether the car crashed or not). The action is composed of continuous steering and acceleration `action = (steer, accel)`. The values are discretized with an index `action = action_ix_to_action(env, ix)` the steering (of the wheels not steering wheel) has `actionc_steer == 7` equally sized steps ranging from `-MAXSTEER` to `MAXSTEER == pi/30` this roughly corresponds to a 90 degree turn of the steering wheel. The acceleration has `actionc_accel == 5` equally sized steps ranging from `-MAXACCEL` to `MAXACCEL == 4.0` in `m/s^2`, giving from 
+The function `state, reward, done = sim!(env, state, action)` will simulate by default 5 steps and return the new state, a positive reward and done (whether the car crashed or not). The action is composed of continuous steering and acceleration `action = (steer, accel)`. The values are discretized with an index `action = action_ix_to_action(env, ix)` the steering (of the wheels not steering wheel) has `actionc_steer == 7` equally sized steps ranging from `-MAXSTEER` to `MAXSTEER == pi/30` this roughly corresponds to a 90 degree turn of the steering wheel. The acceleration has `actionc_accel == 5` equally sized steps ranging from `-MAXACCEL` to `MAXACCEL == 4.0` in `m/s^2`, (accelerating from 0 to 100Mph at 4 m/s^2 takes 9 seconds, like any family car). `done` is true when the car gets too close to a `yolocar`, when it speed above the maximum allowed `MAXSPEED == 14 m/s` (50 Kmph or 30 Mph) or when it reverses at more than `MINSPEED == -0.9 m/s`. When the car overtakes a yolocar the yolocar is re-spawned randomly at about ~60 meters in front of our car. The reward is proportional to the velocity, position and angle of the car on the lane preferring low angles, central position and high velocity. A small "keep alive" reward is given regardles of the car dynamical parameters.
+
+### Training with Aleph-Star and n-step DQN
+
+1. create a 
+
+### Results
+
 
 
 <div align="center">
   <img src="./results.png">
 </div>
+
+### Creating a new environment
+
+
 
 
 
