@@ -34,9 +34,8 @@ on Linux `Dierckx` needs a fortran compiler so `sudo apt-get install gfortran`. 
 ## The environment
 
 The only supplied environment is of a car following a lane. It can be found in the `env` directory, to include it call `include("env/env_lane.jl")`. This environment generates a lane of random width, curves and cars (with a random but smooth velocity profile). Curvature, min/max width and length can be configured, to use the defaults just call `state, env = initialize_simple_road()` which will generate a new random lane and an initial state. All units (velocity, acceleration, time are in `MKS`, angles in radians. The car uses [Ackermann steering](https://en.wikipedia.org/wiki/Ackermann_steering_geometry) in which the wheels are not allowed to slip. Sensors inputs can be generated from any state `sensors = get_sensors(env, state)` which in our case results in an 84x84 `UInt8` grayscale-pixels image (just like the original DQN sensors) which can then be plotted by (for e.g.) `heatmap(sensors, aspect_ratio=1.0)` resulting in:
-<div align="center">
-  <img src="./sensors.png">
-</div>
+
+![sensors](sensors.png)
 
 ### Regarding the sensors:
 
@@ -62,9 +61,7 @@ for training of N-Step DQN use the matching functions `InitializeDTDQN`, `traind
 
 Aleph-Star shows consistently and robustly better perfomance than n-step DQN as shown in the following figure:
 
-<div align="center">
-  <img src="./results.png">
-</div>
+![results](./results.png)
 
 ### Creating a new environment
 
