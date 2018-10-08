@@ -48,11 +48,19 @@ The function `state, reward, done = sim!(env, state, action)` will simulate by d
 
 ### Training with Aleph-Star and n-step DQN
 
-1. create a 
+1. The relevant files are in the folder `ml`. The network is defined in `ml.jl`, the training oops and data structures in `train_alephstar.jl` for aleph-star and `train_dqn` for N-Step DQN
+
+2. To train with Aleph-Star create a `DemoTrainingAlephStar` structure containing all the relevant training parameters and performance tracking. A helper function is `dtas = InitializeDTAS()` it initializes with a learning rate of 0.01, trees of 5500 nodes, gamma of 0.98, etc.
+
+2. the training loop is run `traindtas(dtas, iters, fname)`. It will output some imformation on how the process is going, it will save all the training state (including sensors in the replay buffer) every 100 iterations into the file named `fname` and it will stop after `iters` iterations. The run can be interrupted (not on Windows because of a bug) in the Jupyter notebook or the repl with `cmd-c`.
+
+3. Plot the results with `plotdtas(dtas)`.
+
+for training of N-Step DQN use the matching functions `InitializeDTDQN`, `traindtdqn`, and `plotdtdqn`. The hyperparameters are as close as possible between the two methods for an apples to apples comparison. Still there are a few differences that cannot be bridged because of intrinsic differences in the methods.
 
 ### Results
 
-
+Aleph-Star shows consistently and robustly better perfomance than n-step DQN as shown in the following figure:
 
 <div align="center">
   <img src="./results.png">
@@ -60,6 +68,7 @@ The function `state, reward, done = sim!(env, state, action)` will simulate by d
 
 ### Creating a new environment
 
+Just implement the following methods:
 
 
 
