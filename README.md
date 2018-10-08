@@ -6,6 +6,8 @@ This repository contains the necessary code to reproduce the results presented i
 
 This repository is not yet in the form of a Julia package (this is WIP), but it is fairly general and can easily be used with different environments.
 
+## Table of contents
+
    * [Installation](#installation)
    * [Simulated environment](#the-environment)
    * [Sensors](#regarding-the-sensors)
