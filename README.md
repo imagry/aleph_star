@@ -37,9 +37,19 @@ The only supplied environment is of a car following a lane. It can be found in t
 <div align="center">
   <img src="./sensors.png">
 </div>
-regarding the sensors:
+
+### Regarding the sensors:
 
 instead of using multiple images (like in the original DQN paper), we encode additional information in the image itself: the background color maps to car velocity, the current steering is encoded in values of the the pixels to the left and to the right of the orange lines (which are themselfs of constant color), and the relative velocity between our car and others populating the lane (aka `yolocars` in the code) is encoded in the pixels of the yolocars. The sensors are relative to the car which is drawn as a triangle at the bottom center of the image (this triangle is of constant shape and position, the color is as the background).
+
+### Simulating a few steps
+
+The function `sim!(env, state, action)` will simulate by default 5 steps 
+
+
+<div align="center">
+  <img src="./sensors.png">
+</div>
 
 
 
