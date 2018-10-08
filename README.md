@@ -9,6 +9,7 @@ The code is not yet in easily-installable and registered Julia package format (t
 ## Installation
 
 1. Make sure you have [Julia 1.01](https://julialang.org/downloads/) or above installed
+
 2. Install several needed Julia packages:
 ```Julia
 using Pkg
@@ -25,6 +26,7 @@ Pkg.add("DSP")
 on Linux the `Dierckx` package needs a fortran compiler so `sudo apt-get install gfortran`. The ML package is [Knet](https://github.com/denizyuret/Knet.jl) and requires the `nvcc` (NVIDIA compiler from `Cuda`) to be in the path, otherwise it will default to using the CPU, and the code using it has to be modified accordingly. The `IJulia` package is only needed to use the Jupyter notebooks (`jupyter notebook` has to work from the command line). The basic algorithm implementation (in the `aleph_zero` folder) uses only the `DataStructures` and `Nullables` packages. `Dierckx`, `Knet` and `DSP` are used by the environment (described below), `PyPlot` and `Plots` are only used for interactive plotting of results, and `JLD2` is for saving the results in `HDF5` format. `IJulia` is generally not needed, except the Jupyter notebooks are very nice for this kind of work. When This repository becomes a package it will be much easier to install.
 
 3. clone this repository `git clone https://github.com/imagry/aleph_star`
+
 4. You're all set :) load the jupyter notebooks and have fun!
 
 ## The environment
