@@ -33,11 +33,14 @@ on Linux the `Dierckx` package needs a fortran compiler so `sudo apt-get install
 
 ## The environment
 
-The only supplied environment is of a car following a lane. It can be found in the `env` directory, to include it call `include("env/env_lane.jl")`. This environment generates a lane of random width and curves. Curvature, min/max width and length can be configured, to use the defaults just call `state, env = initialize_simple_road()` which will generate a new random lane and an initial state. All units (velocity, acceleration, time are in `MKS`, angles in radians. The car uses [Ackermann steering](https://en.wikipedia.org/wiki/Ackermann_steering_geometry) in which the wheels are not allowed to slip. Sensors inputs can be generated from any state `sensors = get_sensors(env, state)` which in our case results in an 84x84 `UInt8` grayscale-pixels image (just like the original DQN sensors) which can then be plotted by (for e.g.) `heatmap(sensors, aspect_ratio=1.0)` resulting in:
-
+The only supplied environment is of a car following a lane. It can be found in the `env` directory, to include it call `include("env/env_lane.jl")`. This environment generates a lane of random width, curves and cars (with a random but smooth velocity profile). Curvature, min/max width and length can be configured, to use the defaults just call `state, env = initialize_simple_road()` which will generate a new random lane and an initial state. All units (velocity, acceleration, time are in `MKS`, angles in radians. The car uses [Ackermann steering](https://en.wikipedia.org/wiki/Ackermann_steering_geometry) in which the wheels are not allowed to slip. Sensors inputs can be generated from any state `sensors = get_sensors(env, state)` which in our case results in an 84x84 `UInt8` grayscale-pixels image (just like the original DQN sensors) which can then be plotted by (for e.g.) `heatmap(sensors, aspect_ratio=1.0)` resulting in:
 <div align="center">
   <img src="./sensors.png">
 </div>
+regarding the sensors:
+
+instead of using multiple images (like in the original DQN paper), we encode additional information in the image itself: the background color maps to car velocity, the current steering is encoded in values of the the pixels to the left and to the right of the orange lines (which are themselfs of constant color), and the relative velocity between our car and others populating the lane (aka `yolocars` in the code) is encoded in the pixels of the yolocars. The sensors are relative to the car which is drawn as a triangle at the bottom center of the image (this triangle is of constant shape and position, the color is as the background).
+
 
 
 
