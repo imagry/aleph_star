@@ -51,7 +51,7 @@ The function `state, reward, done = sim!(env, state, action)` will simulate by d
 
 2. To train with Aleph-Star create a `DemoTrainingAlephStar` structure containing all the relevant training parameters and performance tracking. A helper function is `dtas = InitializeDTAS()` it initializes with a learning rate of 0.01, trees of 5500 nodes, gamma of 0.98, etc.
 
-2. the training loop is run `traindtas(dtas, iters, fname)`. It will output some imformation on how the process is going, it will save all the training state (including sensors in the replay buffer) every 100 iterations into the file named `fname` and it will stop after `iters` iterations. The run can be interrupted (not on Windows because of a bug) in the Jupyter notebook or the repl with `cmd-c`.
+2. the training loop is run `traindtas(dtas, iters, fname)`. It will output some imformation on how the process is going, it will save all the training state (including sensors in the replay buffer) every 100 iterations into the file named `fname` and it will stop after `iters` iterations. The run can be interrupted (not on Windows because of a bug) in the Jupyter notebook or the repl with `cmd-c`. To save training data at any point do `@save fname dtas`
 
 3. Plot the results with `plotdtas(dtas)`.
 
@@ -65,7 +65,19 @@ Aleph-Star shows consistently and robustly better perfomance than n-step DQN as 
 
 ### Creating a new environment
 
-Just implement the following methods:
+Implement the following methods, the sensors could be either an image or just a vector of numbers:
+
+```
+action = action_ix_to_action(::MyEnv, ix::Int32)
+sensors = get_sensors(env, state)
+state, reward, done = sim!(env::MyEnv, state, action)
+```
+
+
+
+
+
+
 
 
 
