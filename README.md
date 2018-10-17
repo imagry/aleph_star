@@ -9,6 +9,7 @@ This repository is not yet in the form of a Julia package (this is WIP), but it 
 ## Table of contents
 
    * [What is Aleph-Star?](#what-is-aleph-star)
+   * [What can it do?](#what-can-it-do)
    * [Installation](#installation)
    * [Simulated environment](#the-environment)
    * [Sensors](#regarding-the-sensors)
@@ -22,6 +23,12 @@ This repository is not yet in the form of a Julia package (this is WIP), but it 
 ## What is Aleph-Star?
 
 It is an [A*-like](https://en.wikipedia.org/wiki/A*_search_algorithm) algorithm but using a learnable heuristic. The paper explaining it in detail is still WIP, but hopefully the documentaiton and code in this repository are a good start. Here is a short introduction: the problem of finding the minimal cost path between two nodes on a graph can be formulated as a decision process where at every visited node an optimal action has to be taken minimizing the total accumulated cost. Replacing cost by reward, any such algorithm that generates cost minimizing actions generates reward maximizing actions thus becomming a candidate solver for Markov Decision Processes (MDPs). A* is such a cost minimization algorithm that takes advantage of domain knowledge in the form of a heuristic function; it is interesting because for certain conditions (admissablility and consistency of the heuristic) it converges to the optimal solution while visiting a minimal number of nodes, i.e. no other similar algorithm (equally informed) could perform better. No such proof exists for Monte Carlo Tree Search (MCTS). In Aleph-Star the rule-based heuristic of A* is replaced with a Convolutional Neural Network, the weights are learned in a Reinforcement Learning fashion by interacting with a simulated environment by taking actions, earning rewards and backpropagating action values `Q_a(S)` where `a` represents the action index and `S` the sensory input (itself a function of the state and the environment). The learned heuristic can be used in runtime by itself, or it can be used with the the Aleph-Star tree in a very efficient manner, with little branching. Regular methods used in Q-Learining can be applied to Aleph-Star too, for e.g. reward for exploration, smart reward clipping, target network, etc.
+
+## What can it do?
+
+Motion planning, general model-based reinforcement learning. Stuff like this:
+
+![roundabout_lean](images/roundabout_lean.gif)
 
 ## Installation
 
@@ -98,11 +105,11 @@ for training of N-Step DQN use the matching functions `InitializeDTDQN`, `traind
 
 For this environment, and using this network architecture (similar to the [DQN paper](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)), the heuristinc learnt by Aleph-Star shows consistently and robustly better perfomance than n-step DQN, as seen in the figure below. The tree reward is even higher:
 
-![results](images/rewards.png)
+![results_rewards](images/rewards.png)
 
 The tree efficiency is defined as the tree rank divided by the total number of nodes in it, and the tree rank is defined as the depth of the node maximising `node actions max Q + Node Accumulated reward`. High efficiency means the tree has little branching:
 
-![results](images/ranks.png)
+![results_ranks](images/ranks.png)
 
 
 ## Creating a new environment
@@ -118,7 +125,7 @@ qs = network_predict(env, w, sensors) # `w` for the network weights
 
 ## Why Julia?
 
-well, what are the alternatives? We had an implementation in Python but the simulation is just too slo unless coded in C which makes the whole project less fun when you consider integration, compilation, and loss of interactivity. The Julia implementation is fast, it can be used with [PyTorch](https://pytorch.org/) through [PyCall](https://github.com/JuliaPy/PyCall.jl), we can can easily change the simulation and sensors to fit our research needs. One could use the [Atari Learning Environment](http://www.arcadelearningenvironment.org/) through projects like [atari-py](https://github.com/openai/atari-py) or directly through C/C++ using [Cxx](https://github.com/Keno/CXX.jl) but then we would have to deal with the C/C++ implementation issues (hard to modify, bugs, memory leaks, etc.) BTW, all this was succesfully tried
+well, what are the alternatives? We had an implementation in Python but the simulation is just too slow unless coded in C which makes the whole project less fun when you consider integration, compilation, and loss of interactivity. The Julia implementation is fast, it can be used with [PyTorch](https://pytorch.org/) through [PyCall](https://github.com/JuliaPy/PyCall.jl), we can can easily change the simulation and sensors to fit our research needs. One could use the [Atari Learning Environment](http://www.arcadelearningenvironment.org/) through projects like [atari-py](https://github.com/openai/atari-py) or directly through C/C++ using [Cxx](https://github.com/Keno/CXX.jl) but then we would have to deal with the C/C++ implementation issues (hard to modify, bugs, memory leaks, etc.) BTW, all this was succesfully tried
 
 ## Future development
 
