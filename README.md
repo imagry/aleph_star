@@ -98,7 +98,10 @@ for training of N-Step DQN use the matching functions `InitializeDTDQN`, `traind
 
 Aleph-Star shows consistently and robustly better perfomance than n-step DQN as shown in the following figure:
 
-![results](images/results.png)
+![results](images/rewards.png)
+
+![results](images/ranks.png)
+
 
 ## Creating a new environment
 
