@@ -8,6 +8,7 @@ This repository is not yet in the form of a Julia package (this is WIP), but it 
 
 ## Table of contents
 
+   * [What is Aleph-Star?](#what-is-aleph-star)
    * [Installation](#installation)
    * [Simulated environment](#the-environment)
    * [Sensors](#regarding-the-sensors)
@@ -17,6 +18,10 @@ This repository is not yet in the form of a Julia package (this is WIP), but it 
    * [Creating a new environment](#creating-a-new-environment)
    * [Why Julia?](#why-julia)
    * [Future development](#future-development)
+
+## What is Aelph-Star?
+
+It is an [A*-like](https://en.wikipedia.org/wiki/A*_search_algorithm) algorithm but using a learnable heuristic. The paper explaining it in detail is still WIP, but hopefully the documentaiton and code in this repository are a good start. Here is a short introduction: the problem of finding the minimal cost path between two nodes on a graph can be formulated as a decision process where at every visited node an optimal action has to be taken minimizing the total accumulated cost. Replacing cost by reward, any such algorithm that generates cost minimizing actions generates reward maximizing actions thus becomming a candidate solver for Markov Decision Processes (MDPs). A* is such a cost minimization algorithm that takes advantage of domain knowledge in the form of a heuristic function; it is interesting because for certain conditions (admissablility and consistency of the heuristic) it converges to the optimal solution while visiting a minimal number of nodes, i.e. no other similar algorithm (equally informed) could perform better. No such proof exists for Monte Carlo Tree Search (MCTS). In Aleph-Star the rule-based heuristic of A* is replaced with a Convolutional Neural Network, the weights are learned in a Reinforcement Learning fashion by interacting with a simulated environment by taking actions, earning rewards and backpropagating action values `Q_a(S)` where `a` represents the action index and `S` the sensory input itself a function of the state and the environment. The learned heuristic can be used in runtime by itself, or it can be used with the the Aleph-Star tree in a very efficient manner, with little branching. Regular methods used in Q-Learining can be applied to Aleph-Star too, for e.g. reward for exploration, smart reward clipping, target network, etc.
 
 ## Installation
 
