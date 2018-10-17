@@ -96,9 +96,11 @@ for training of N-Step DQN use the matching functions `InitializeDTDQN`, `traind
 
 ## Results
 
-Aleph-Star shows consistently and robustly better perfomance than n-step DQN as shown in the following figure:
+For this environment, and using this network architecture (similar to the [DQN paper](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)), the heuristinc learnt by Aleph-Star shows consistently and robustly better perfomance than n-step DQN, as seen in the figure below. The tree reward is even higher:
 
 ![results](images/rewards.png)
+
+The tree efficiency is defined as the tree rank divided by the total number of nodes in it, and the tree rank is defined as the depth of the node maximising `node actions max Q + Node Accumulated reward`. High efficiency means the tree has little branching:
 
 ![results](images/ranks.png)
 
