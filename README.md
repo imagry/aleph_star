@@ -6,7 +6,7 @@ This repository contains the necessary code to reproduce the results presented i
 
 This repository is not yet in the form of a Julia package (this is WIP), but it is fairly general and can easily be used with different environments.
 
-see the GTC presentation in PDF formate [here](GTC_PRESENTATION_NO_VIDEOS.pdf) and the libre office format with videos [here](GTC_PRESENTATION_WITH_VIDEOS.odp)
+see the GTC presentation in PDF format [here](GTC_PRESENTATION_NO_VIDEOS.pdf) and the libre office format with videos [here](GTC_PRESENTATION_WITH_VIDEOS.odp)
 
 ## Table of contents
 
