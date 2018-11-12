@@ -5,3 +5,11 @@
 *.jld2
 *.jld
 deps/deps.jl
+*.out
+*.aux
+*.bbl
+*.blg
+*.log
+
+
+
