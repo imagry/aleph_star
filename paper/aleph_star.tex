@@ -3,10 +3,7 @@
 \usepackage[final]{arxiv}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{amsfonts}
-\usepackage{microtype}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage{algorithm, algpseudocode}
 \usepackage{amsmath, amsfonts, amsthm, amssymb}
 
 \title{Reinforcement Learning with A* and a Deep Heuristic}
@@ -92,39 +89,46 @@ For the runtime algorithm the heuristic can be used by itself just by calculatin
 
 Note that Alg. \ref{alg:gentree} assumes infinite long episodes i.e. ending an episode is always considered a bad thing getting the minimal value possible of $0$. This requires always positive rewards, and positive heuristic. This heuristic behaviour can be enforce in numerous ways, for e.g. by passing the output through an $\rm abs()$ non-linearity at the end of the neural network. Alg. \ref{alg:gentree} also assumes a minimum of two nodes per tree, as it is arguable whether a smaller tree can still be called a tree.
 
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/sensors.png}
+  \caption{Two sampled sensors from different environment initialization. The sensors include a road, the actor car, other cars, and some information encoded in the pixel values as described in the text. The sensors are grayscale, a color palette is used here for better presentation. }
+  \label{fig:sensors}
+\end{figure}
+
 \begin{algorithm}[h]
   \caption{Generate a tree guided by the heuristic ${\mathcal H}_\theta$}
   \label{alg:gentree}
-\begin{algorithmic}[1]
-  \State initialize an empty vector of nodes $\mathit{Tree}$
-  \State initialize a priority queue $\mathit{Queue}$
-  \State {\bf initialize the root node:}
-  \State $\mathit{node} \leftarrow$ new empty node
-  \State $\mathit{node.s} \leftarrow$ randomly initialized state
-  \Comment save the initial state in the root node
-  \State $\mathit{node.C} \leftarrow 0$
-  \Comment accumulated (past) reword is zero for root
-  \State $\mathit{node.R} \leftarrow 0$
-  \Comment reward given by performing action leading to this root node
-  \State $\mathit{node.Done} \leftarrow$ False
-  \Comment root is a non-terminal state
-  \State $\mathit{node.Q} \leftarrow 0)$
+  \begin{algorithmic}[1]
+    \State initialize an empty vector of nodes $\mathit{Tree}$
+    \State initialize a priority queue $\mathit{Queue}$
+    \State {\bf initialize the root node:}
+    \State $\mathit{node} \leftarrow$ new empty node
+    \State $\mathit{node.s} \leftarrow$ randomly initialized state
+    \Comment save the initial state in the root node
+    \State $\mathit{node.C} \leftarrow 0$
+    \Comment accumulated (past) reword is zero for root
+    \State $\mathit{node.R} \leftarrow 0$
+    \Comment reward given by performing action leading to this root node
+    \State $\mathit{node.Done} \leftarrow$ False
+    \Comment root is a non-terminal state
+    \State $\mathit{node.Q} \leftarrow 0)$
   \Comment vector of action values, one entry per action  
   \State $\mathit{node.Parent} \leftarrow$ None
   \Comment root node has no parent
   \State $\mathit{node.Children} \leftarrow \{ \}$
   \Comment a dictionary actions $\rightarrow$ children nodes
-
+  
   \State $\mathit{Tree} \leftarrow \mathit{node}$
   \Comment append root node to tree
-
+  
   \State {\bf repeatedly add nodes until tree is large enough:}
   \Repeat
-    \State $\mathit{node.Q} \leftarrow {\mathcal H}_\theta(S(s))$
-    \If{not $\mathit{node.Done}$}
-    \ForAll {$a \in \mathcal A $}    
-      \State $\mathit{Queue} \leftarrow (a, \mathit{node})$ with priority $\mathit{node.C+\mathit{node.Q_a}}$
-    \EndFor
+  \State $\mathit{node.Q} \leftarrow {\mathcal H}_\theta(S(s))$
+  \If{not $\mathit{node.Done}$}
+  \ForAll {$a \in \mathcal A $}    
+  \State $\mathit{Queue} \leftarrow (a, \mathit{node})$ with priority $\mathit{node.C+\mathit{node.Q_a}}$
+  \EndFor
     \EndIf
     \If{$rnd() < \epsilon$}
       \Comment exploration parameter
@@ -161,12 +165,6 @@ The sensors can be seen in Fig. \ref{fig:sensors}. Instead of using multiple fra
 
 The reward used is proportional to the car velocity, and multiplied by a factor preferring central positions and angles tangential to the lane. A small constant ``keep-alive" reward is also added every simulated time-step. The heuristic was trained with SGD, learning rate kept constant 0.01, and gamma 0.98. Batch size 64, and $\epsilon$ changed from an initial value of 0.5 to 0.01. Maximum tree size was 5500 nodes, and training continued for 1000 iterations. The N-Step DQN implementation closely follows \alephstar, except there is no priority queue, and branching is not allowed. There are plenty more details, all are present in the reference implementation.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/sensors.png}
-  \caption{Two sampled sensors from different environment initialization. The sensors include a road, the actor car, other cars, and some information encoded in the pixel values as described in the text. The sensors are grayscale, a color palette is used here for better presentation. }
-  \label{fig:sensors}
-\end{figure}
 
 \section{Results}
 \label{sec:results}
@@ -189,6 +187,8 @@ We define the rank of an \alephstar tree as the depth of the node maximizing acc
 We presented a new model based reinforcement learning algorithm that efficiently combines a tree and a learnable heuristic. This algorithm has roots in \astar which was proven to be optimal under certain conditions, and as discussed in section \ref{sec:results} it is suitable for use with very deep trees. We open-sourced the code for reproducing all the results presented in this paper at \url{https://github.com/imagry/aleph_star}, which include tests of \alephstar and N-Step DQN (as a baseline) in a pixel based sensory context. In that environment \alephstar learns effectively while N-Step DQN fails to learn at all. A proper comparison to MCTS (or AlphaZero) is still to be done.
 
 % \subsubsection*{Acknowledgments}
+
+\newpage
 
 {
 \bibliographystyle{apalike}
