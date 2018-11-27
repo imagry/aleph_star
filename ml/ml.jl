@@ -28,11 +28,11 @@ function predict(w,x)
 end
 
 function initialize_weights(number_of_actions)
-    [
+    return [
         0.01f0*randn(Float32, 8, 8, 1, 16),
-        0.01f0*randn(Float32, 20, 20, 16),
+        0.01f0*randn(Float32, 1, 1, 16),
         0.01f0*randn(Float32, 4,4,16,32),
-        0.01f0*randn(Float32, 9,9,32),
+        0.01f0*randn(Float32, 1,1,32),
         0.01f0*randn(Float32, 256,2592),
         0.01f0*randn(Float32, 256,1),
         0.01f0*randn(Float32, number_of_actions,256),
