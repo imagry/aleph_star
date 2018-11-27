@@ -13,24 +13,24 @@ struct Node{ACTIONC}
     end
 end
 
-struct HeapCell{NODE}
+struct HeapCell
     is_used::Bool # because we cannot efficiently pop a random element from a heap
     score::Float32
     action_ix::Int32
     parent_id::Int32
 end
 
-mutable struct Heap{NODE}
-    cells::Vector{HeapCell{NODE}}
+mutable struct Heap
+    cells::Vector{HeapCell}
     total_used::Int64
-    Heap{NODE}() where {NODE} = new(Vector{HeapCell{NODE}}(), 0)
+    Heap() = new(Vector{HeapCell}(), 0)
 end
 
 # The tree contains the nodes (describing the structure)
 # and any additional data per node
 struct Tree{STATE, SENSOR, ENV, ACTIONC}
     env::ENV
-    heap::Heap{Node{ACTIONC}}
+    heap::Heap
     # these 6 vectors are indexed by node.id (SOA style)
     nodes::Vector{Node{ACTIONC}}
     sensors::Vector{SENSOR}

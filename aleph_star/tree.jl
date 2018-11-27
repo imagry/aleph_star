@@ -139,7 +139,7 @@ function build_tree(w, env, root_state, stepc, epsilon, gamma)
     states = typeof(root_state)[]
     accumulated_rewards = Float32[]
     dones = Bool[]
-    heap = Heap{Node{ACTIONC}}()
+    heap = Heap()
     tree = Tree(env, heap, nodes, sensors, children_qs, states, accumulated_rewards, dones)
 
     # update the tree with root
