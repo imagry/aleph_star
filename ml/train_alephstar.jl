@@ -148,15 +148,9 @@ function traindtas(dtas::DemoTrainingAlephStar, iters::Integer, fname)
         #### Training #######################################################
                             
         if length(dtas.qs) >= dtas.train_when_min
-            # fix scales
-            # for aix in 1:length(dtas.qs[1])
-            #     w[end  ][aix] = w[end  ][aix]*0.999 + 0.001*mean(q[aix] for q in dtas.qs)
-            #     w[end-1][aix] = w[end-1][aix]*0.999 + 0.001*std(q[aix] for q in dtas.qs)
-            # end
-            scaled_qs = [(q.-w[end])./w[end-1] for q in dtas.qs]
             N = round(Int64, length(ixs) * dtas.train_epochs / dtas.batchsize)
             println("\n---- training for "*string(N)*" iterations"); flush(stdout)
-            w,ll = trainit(N, w, dtas.sensors, scaled_qs, dtas.LR, dtas.batchsize, dtas.priorities)
+            w,ll = trainit(N, w, dtas.sensors, dtas.qs, dtas.LR, dtas.batchsize, dtas.priorities)
             dtas.w = map(Array, w)
             if dtas.epsilon > dtas.MIN_EPSILON
                 dtas.epsilon *= dtas.fac

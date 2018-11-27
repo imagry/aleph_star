@@ -24,7 +24,7 @@ function predict(w,x)
     x = w[5]*x .+ w[6]
     x = normit(x)
     x = max.(0.3f0.*x,x)
-    return w[7]*x .+ w[8]
+    return abs.(w[7]*x .+ w[8])
 end
 
 function initialize_weights(number_of_actions)
@@ -37,8 +37,6 @@ function initialize_weights(number_of_actions)
         0.01f0*randn(Float32, 256,1),
         0.01f0*randn(Float32, number_of_actions,256),
         0.01f0*randn(Float32, number_of_actions,1),
-        ones(Float32, number_of_actions),  # std
-        zeros(Float32, number_of_actions), # mean 
     ]
 end
 
@@ -47,7 +45,7 @@ lossgradient = gradloss(loss)
 
 function train(w, x,y; lr=.0001f0)
     dw, ll = lossgradient(w, x, y)
-    for i in 1:(length(w) - 2)
+    for i in 1:length(w)
         w[i] -= lr .* dw[i]
     end
     return w, ll
@@ -98,8 +96,7 @@ function network_predict(env::MyEnv, w, sensors)
     x = zeros(Float32, size(sensors)[1],size(sensors)[2],1,1)
     x[:,:,1,1] .= sensors./255.0f0
     v = Knet.Array(predict(w, Knet.KnetArray(x)))
-    v = reshape(v,length(v))
-    return abs.(w[end] .+ w[end-1].*v)
+    return reshape(v,length(v))
 end
 
 function moving_avg(y,w)
