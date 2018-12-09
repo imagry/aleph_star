@@ -5,7 +5,7 @@
 ------
 
 <div align="center">
-  <img  src="images/logo300.png" width="200">
+  <img  src="images/logo300.png" width="300">
 </div>
 
 &nbsp;
