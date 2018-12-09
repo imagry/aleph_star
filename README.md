@@ -1,6 +1,14 @@
 <div align="center">
-  <img src="images/aleph_star_logo.png">
+ <img src="images/aleph_star_logo.png">
 </div>
+
+------
+
+<div align="center">
+  <img  src="images/logo300.png" width="200">
+</div>
+
+&nbsp;
 
 This repository contains the necessary code to reproduce the results presented in [GTC (Israel) 2018](https://www.nvidia.com/en-il/gtc/) talk and [paper "Reinforcement learning with A* and a deep heuristic"](paper/aleph_star.pdf). Aleph-Star is the main algorithm described in these presenations.
 
