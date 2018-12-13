@@ -10,7 +10,7 @@
 
 &nbsp;
 
-This repository contains the necessary code to reproduce the results presented in [GTC (Israel) 2018](https://www.nvidia.com/en-il/gtc/) talk and [paper "Reinforcement learning with A* and a deep heuristic"](paper/aleph_star.pdf). Aleph-Star is the main algorithm described in these presenations.
+This repository contains the necessary code to reproduce the results presented in [GTC (Israel) 2018](https://www.nvidia.com/en-il/gtc/) talk and [paper "Reinforcement learning with A* and a deep heuristic"](https://arxiv.org/abs/1811.07745). Aleph-Star is the main algorithm described in these presenations.
 
 This repository is not yet in the form of a Julia package (this is WIP), but it is fairly general and can easily be used with different environments.
 
